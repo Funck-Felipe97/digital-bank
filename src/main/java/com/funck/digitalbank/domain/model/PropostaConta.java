@@ -39,4 +39,8 @@ public class PropostaConta extends AbstractEntity {
         return propostaConta;
     }
 
+    public void validarEtapa() {
+        etapaProposta.validar(this);
+    }
+
 }

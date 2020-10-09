@@ -6,9 +6,9 @@ import java.net.URI;
 
 public interface AbstractResource {
 
-    default URI createURI(String id) {
-        return ServletUriComponentsBuilder.fromCurrentRequestUri()
-                .path("/{id}/endereco")
+    default URI createURI(final String path, final String id) {
+        return ServletUriComponentsBuilder.fromCurrentServletMapping()
+                .path(path)
                 .buildAndExpand(id)
                 .toUri();
     }

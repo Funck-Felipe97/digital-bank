@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 @Data
-public class NovoEnderecoDTO {
+public class NovoEndereco {
 
     @NotEmpty
     @Pattern(regexp = "^\\d{5}-\\d{3}")

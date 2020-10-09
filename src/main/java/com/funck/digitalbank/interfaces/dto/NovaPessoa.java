@@ -2,19 +2,19 @@ package com.funck.digitalbank.interfaces.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.funck.digitalbank.domain.model.Pessoa;
+import com.funck.digitalbank.infrastructure.validador.Email;
+import com.funck.digitalbank.infrastructure.validador.Idade;
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 @Data
-public class NovaPessoaDTO {
+public class NovaPessoa {
 
     @NotBlank
     private String nome;
@@ -22,16 +22,17 @@ public class NovaPessoaDTO {
     @NotBlank
     private String sobrenome;
 
-    @Email
+    @Email(unique = true)
     @NotNull
     private String email;
 
     @NotNull
-    @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$")
+    @CPF
     private String cpf;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Idade(minima = 18)
     @NotNull
     @Past
     private LocalDate dataNascimento;
@@ -44,10 +45,6 @@ public class NovaPessoaDTO {
                 .email(email)
                 .cpf(cpf)
                 .build();
-    }
-
-    public Long getIdade() {
-        return  ChronoUnit.YEARS.between(dataNascimento, LocalDate.now());
     }
 
 }

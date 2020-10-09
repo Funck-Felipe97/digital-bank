@@ -37,6 +37,8 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
     public PropostaConta cadastrarEndereco(final String propostaId, final Endereco endereco) {
         var proposta = getProposta(propostaId);
 
+        proposta.validarEtapa();
+
         proposta.getPessoa().setEndereco(endereco);
 
         pessoaRepository.save(proposta.getPessoa());
@@ -50,6 +52,8 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
     public PropostaConta cadastrarFotoCPF(final String propostaId, final FotoCPF fotoCPF) {
         var proposta = getProposta(propostaId);
 
+        proposta.validarEtapa();
+
         proposta.getPessoa().setFotoCpf(fotoCPF);
 
         pessoaRepository.save(proposta.getPessoa());
@@ -60,8 +64,10 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
     }
 
     @Override
-    public void finalizarProposta(String propostaId, boolean propostaAceita) {
+    public void finalizarProposta(final String propostaId, final boolean propostaAceita) {
         var proposta = getProposta(propostaId);
+
+        proposta.validarEtapa();
 
         if (propostaAceita) {
             finalizarPropostaConta.aceitarProposta(proposta);

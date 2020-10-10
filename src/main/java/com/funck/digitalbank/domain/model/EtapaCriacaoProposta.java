@@ -53,8 +53,8 @@ public enum EtapaCriacaoProposta {
             ENDERECO_CADASTRADO.validar(propostaConta);
             CPF_CADASTRADO.validar(propostaConta);
 
-            if (propostaConta.getStatusProposta() == null || StatusProposta.PENDENTE.equals(propostaConta.getStatusProposta())) {
-                throw new PropostaContaInvalidaException("A proposta não pode ser finalziada em uma resposta do usuário");
+            if (propostaConta.getStatusProposta() == null) {
+                throw new PropostaContaInvalidaException("A proposta não possuí nenhum status");
             }
         }
 

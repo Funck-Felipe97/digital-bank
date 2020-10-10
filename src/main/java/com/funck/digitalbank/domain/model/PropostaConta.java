@@ -33,7 +33,6 @@ public class PropostaConta extends AbstractEntity {
         PropostaConta propostaConta = new PropostaConta();
 
         propostaConta.pessoa = pessoa;
-        propostaConta.statusProposta = StatusProposta.PENDENTE;
         propostaConta.etapaProposta = EtapaCriacaoProposta.PESSOA_CADASTRADA;
 
         return propostaConta;

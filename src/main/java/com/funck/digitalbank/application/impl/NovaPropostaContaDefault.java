@@ -1,13 +1,10 @@
 package com.funck.digitalbank.application.impl;
 
-import com.funck.digitalbank.application.FinalizarPropostaConta;
 import com.funck.digitalbank.application.NovaPropostaConta;
-import com.funck.digitalbank.domain.model.Endereco;
-import com.funck.digitalbank.domain.model.EtapaCriacaoProposta;
-import com.funck.digitalbank.domain.model.FotoCPF;
-import com.funck.digitalbank.domain.model.Pessoa;
-import com.funck.digitalbank.domain.model.PropostaConta;
-import com.funck.digitalbank.domain.model.StatusProposta;
+import com.funck.digitalbank.application.PropostaContaEventPublisher;
+import com.funck.digitalbank.application.events.PropostaAceitaEvent;
+import com.funck.digitalbank.application.events.PropostaRecusadaEvent;
+import com.funck.digitalbank.domain.model.*;
 import com.funck.digitalbank.domain.repositories.PessoaRepository;
 import com.funck.digitalbank.domain.repositories.PropostaContaRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +20,7 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
 
     private final PropostaContaRepository propostaContaRepository;
     private final PessoaRepository pessoaRepository;
-    private final FinalizarPropostaConta finalizarPropostaConta;
+    private final PropostaContaEventPublisher propostaContaEventPublisher;
 
     @Override
     public PropostaConta novaProposta(final Pessoa pessoa) {
@@ -71,10 +68,9 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
         proposta.validarEtapasAnteriores();
 
         if (propostaAceita) {
-            finalizarPropostaConta.aceitarProposta(proposta);
-            proposta.setStatusProposta(StatusProposta.ACEITA);
+            propostaContaEventPublisher.publishPropostaAceitaEvent(proposta);
         } else {
-            finalizarPropostaConta.rejeitarProposta(proposta);
+            propostaContaEventPublisher.publishPropostaRecusadaEvent(proposta);
             proposta.setStatusProposta(StatusProposta.RECUSADA);
         }
 

@@ -67,7 +67,7 @@ public class PropostaContaResource implements AbstractResource {
             @RequestBody @Valid final RespostaProposta respostaProposta) {
         var proposta = novaPropostaConta.finalizarProposta(propostaId, respostaProposta.isPropostaAceita());
 
-        var message = StatusProposta.ACEITA.equals(proposta.getStatusProposta()) ? "A conta está sendo criada : )" : ": (";
+        var message = StatusProposta.RECUSADA.equals(proposta.getStatusProposta()) ? ": (" : "A conta está sendo criada : )";
 
         return ResponseEntity.ok(message);
     }

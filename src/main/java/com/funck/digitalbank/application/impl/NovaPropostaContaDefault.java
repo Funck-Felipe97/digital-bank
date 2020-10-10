@@ -2,9 +2,12 @@ package com.funck.digitalbank.application.impl;
 
 import com.funck.digitalbank.application.NovaPropostaConta;
 import com.funck.digitalbank.application.PropostaContaEventPublisher;
-import com.funck.digitalbank.application.events.PropostaAceitaEvent;
-import com.funck.digitalbank.application.events.PropostaRecusadaEvent;
-import com.funck.digitalbank.domain.model.*;
+import com.funck.digitalbank.domain.model.Endereco;
+import com.funck.digitalbank.domain.model.EtapaCriacaoProposta;
+import com.funck.digitalbank.domain.model.FotoCPF;
+import com.funck.digitalbank.domain.model.Pessoa;
+import com.funck.digitalbank.domain.model.PropostaConta;
+import com.funck.digitalbank.domain.model.StatusProposta;
 import com.funck.digitalbank.domain.repositories.PessoaRepository;
 import com.funck.digitalbank.domain.repositories.PropostaContaRepository;
 import lombok.RequiredArgsConstructor;

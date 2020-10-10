@@ -26,7 +26,7 @@ public class PropostaConta extends AbstractEntity {
     private EtapaCriacaoProposta etapaProposta;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "status_proposta", nullable = false)
+    @Column(name = "status_proposta")
     private StatusProposta statusProposta;
 
     public static PropostaConta novaProposta(final Pessoa pessoa) {

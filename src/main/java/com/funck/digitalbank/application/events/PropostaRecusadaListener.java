@@ -12,7 +12,7 @@ public class PropostaRecusadaListener implements ApplicationListener<PropostaRec
     private final String emailEmpresa;
     private final EmailSender emailSender;
 
-    public PropostaRecusadaListener(@Value("${informacoes-empresa.email}") String emailEmpresa, EmailSender emailSender) {
+    public PropostaRecusadaListener(@Value("${informacoes-empresa.email:null}") String emailEmpresa, EmailSender emailSender) {
         this.emailEmpresa = emailEmpresa;
         this.emailSender = emailSender;
     }

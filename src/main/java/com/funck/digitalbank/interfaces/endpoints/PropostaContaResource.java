@@ -1,7 +1,6 @@
 package com.funck.digitalbank.interfaces.endpoints;
 
 import com.funck.digitalbank.application.NovaPropostaConta;
-import com.funck.digitalbank.domain.model.StatusProposta;
 import com.funck.digitalbank.interfaces.dto.NovaFotoCPF;
 import com.funck.digitalbank.interfaces.dto.NovaPessoa;
 import com.funck.digitalbank.interfaces.dto.NovoEndereco;
@@ -67,7 +66,8 @@ public class PropostaContaResource implements AbstractResource {
             @RequestBody @Valid final RespostaProposta respostaProposta) {
         var proposta = novaPropostaConta.finalizarProposta(propostaId, respostaProposta.isPropostaAceita());
 
-        var message = StatusProposta.RECUSADA.equals(proposta.getStatusProposta()) ? ": (" : "A conta está sendo criada : )";
+        //TODO: Melhor isso futuramente
+        var message = !respostaProposta.isPropostaAceita() ? ": (" : "A conta está sendo criada : )";
 
         return ResponseEntity.ok(message);
     }

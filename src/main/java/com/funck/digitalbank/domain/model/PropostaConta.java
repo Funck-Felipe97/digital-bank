@@ -2,6 +2,7 @@ package com.funck.digitalbank.domain.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.util.Assert;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,6 +41,15 @@ public class PropostaConta extends AbstractEntity {
 
     public void validarEtapasAnteriores() {
         etapaProposta.validar(this);
+    }
+
+    public void validarPropostaFinalizada() {
+        Assert.isTrue(
+                EtapaCriacaoProposta.PROPOSTA_FINALIZADA.equals(etapaProposta),
+                "A proposta para criar a conta não foi finalizada"
+        );
+
+        validarEtapasAnteriores();
     }
 
 }

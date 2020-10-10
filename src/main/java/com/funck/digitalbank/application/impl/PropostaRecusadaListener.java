@@ -1,13 +1,15 @@
-package com.funck.digitalbank.application.events;
+package com.funck.digitalbank.application.impl;
 
+import com.funck.digitalbank.application.FinalizarPropostaConta;
+import com.funck.digitalbank.application.events.PropostaRecusadaEvent;
 import com.funck.digitalbank.infrastructure.email.Email;
 import com.funck.digitalbank.infrastructure.email.EmailSender;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PropostaRecusadaListener implements ApplicationListener<PropostaRecusadaEvent> {
+public class PropostaRecusadaListener implements FinalizarPropostaConta<PropostaRecusadaEvent> {
 
     private final String emailEmpresa;
     private final EmailSender emailSender;
@@ -17,12 +19,13 @@ public class PropostaRecusadaListener implements ApplicationListener<PropostaRec
         this.emailSender = emailSender;
     }
 
+    @EventListener
     @Override
-    public void onApplicationEvent(PropostaRecusadaEvent propostaRecusadaEvent) {
-        var proposta = propostaRecusadaEvent.getPropostaConta();
+    public void procederProposta(final PropostaRecusadaEvent propostaRecusadaEvent) {
+        var propostaConta = propostaRecusadaEvent.getPropostaConta();
 
         Email email = Email.builder()
-                .destinatario(proposta.getPessoa().getEmail())
+                .destinatario(propostaConta.getPessoa().getEmail())
                 .emitente(emailEmpresa)
                 .titulo("Você recusou nossa porposta de abertura de conta")
                 .mensagem("Por favor, aceita nossa proposta para abrir um conta digital : ) ")
@@ -30,5 +33,4 @@ public class PropostaRecusadaListener implements ApplicationListener<PropostaRec
 
         emailSender.send(email);
     }
-
 }

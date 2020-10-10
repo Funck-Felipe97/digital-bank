@@ -7,7 +7,6 @@ import com.funck.digitalbank.domain.model.EtapaCriacaoProposta;
 import com.funck.digitalbank.domain.model.FotoCPF;
 import com.funck.digitalbank.domain.model.Pessoa;
 import com.funck.digitalbank.domain.model.PropostaConta;
-import com.funck.digitalbank.domain.model.StatusProposta;
 import com.funck.digitalbank.domain.repositories.PessoaRepository;
 import com.funck.digitalbank.domain.repositories.PropostaContaRepository;
 import lombok.RequiredArgsConstructor;
@@ -76,16 +75,17 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
 
         proposta.validarEtapasAnteriores();
 
+        proposta.setEtapaProposta(EtapaCriacaoProposta.PROPOSTA_FINALIZADA);
+
+        proposta = propostaContaRepository.save(proposta);
+
         if (propostaAceita) {
             propostaContaEventPublisher.publishPropostaAceitaEvent(proposta);
         } else {
             propostaContaEventPublisher.publishPropostaRecusadaEvent(proposta);
-            proposta.setStatusProposta(StatusProposta.RECUSADA);
         }
 
-        proposta.setEtapaProposta(EtapaCriacaoProposta.PROPOSTA_FINALIZADA);
-
-        return propostaContaRepository.save(proposta);
+        return proposta;
     }
 
     private PropostaConta getProposta(String propostaId) {

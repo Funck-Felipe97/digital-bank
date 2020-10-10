@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 public enum EtapaCriacaoProposta {
 
     PESSOA_CADASTRADA(1) {
-
         @Override
         public void validar(@NotNull PropostaConta propostaConta) {
             if (propostaConta.getPessoa() == null) {
@@ -21,7 +20,6 @@ public enum EtapaCriacaoProposta {
 
     },
     ENDERECO_CADASTRADO(2) {
-
         @Override
         public void validar(@NotNull PropostaConta propostaConta) {
             PESSOA_CADASTRADA.validar(propostaConta);
@@ -33,7 +31,6 @@ public enum EtapaCriacaoProposta {
 
     },
     CPF_CADASTRADO(3) {
-
         @Override
         public void validar(PropostaConta propostaConta) {
             PESSOA_CADASTRADA.validar(propostaConta);
@@ -46,16 +43,11 @@ public enum EtapaCriacaoProposta {
 
     },
     PROPOSTA_FINALIZADA(4) {
-
         @Override
         public void validar(PropostaConta propostaConta) {
             PESSOA_CADASTRADA.validar(propostaConta);
             ENDERECO_CADASTRADO.validar(propostaConta);
             CPF_CADASTRADO.validar(propostaConta);
-
-            if (propostaConta.getStatusProposta() == null) {
-                throw new PropostaContaInvalidaException("A proposta não possuí nenhum status");
-            }
         }
 
     };

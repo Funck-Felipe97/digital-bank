@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
 @Getter
-public class PropostaRecusadaEvent extends ApplicationEvent {
+public class PropostaRecusadaEvent extends ApplicationEvent implements PropostaContaEvent {
 
     private final PropostaConta propostaConta;
 

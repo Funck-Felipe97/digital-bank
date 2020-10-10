@@ -13,6 +13,6 @@ public interface NovaPropostaConta {
 
     PropostaConta cadastrarFotoCPF(String propostaId, FotoCPF fotoCPF);
 
-    void finalizarProposta(String propostaId, boolean propostaAceita);
+    PropostaConta finalizarProposta(String propostaId, boolean propostaAceita);
 
 }

@@ -1,10 +1,12 @@
 package com.funck.digitalbank.interfaces.endpoints;
 
 import com.funck.digitalbank.application.NovaPropostaConta;
+import com.funck.digitalbank.domain.model.StatusProposta;
 import com.funck.digitalbank.interfaces.dto.NovaFotoCPF;
 import com.funck.digitalbank.interfaces.dto.NovaPessoa;
 import com.funck.digitalbank.interfaces.dto.NovoEndereco;
 import com.funck.digitalbank.interfaces.dto.PessoaInfo;
+import com.funck.digitalbank.interfaces.dto.RespostaProposta;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,8 +62,14 @@ public class PropostaContaResource implements AbstractResource {
     }
 
     @PostMapping("/{propostaId}/finalizar")
-    public ResponseEntity finalizarProposta(@PathVariable final String propostaId) {
-        return null;
+    public ResponseEntity finalizarProposta(
+            @PathVariable final String propostaId,
+            @RequestBody @Valid final RespostaProposta respostaProposta) {
+        var proposta = novaPropostaConta.finalizarProposta(propostaId, respostaProposta.isPropostaAceita());
+
+        var message = StatusProposta.ACEITA.equals(proposta.getStatusProposta()) ? "A conta está sendo criada : )" : ": (";
+
+        return ResponseEntity.ok(message);
     }
 
 }

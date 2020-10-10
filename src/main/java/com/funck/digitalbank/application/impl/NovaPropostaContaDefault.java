@@ -7,6 +7,7 @@ import com.funck.digitalbank.domain.model.EtapaCriacaoProposta;
 import com.funck.digitalbank.domain.model.FotoCPF;
 import com.funck.digitalbank.domain.model.Pessoa;
 import com.funck.digitalbank.domain.model.PropostaConta;
+import com.funck.digitalbank.domain.model.StatusProposta;
 import com.funck.digitalbank.domain.repositories.PessoaRepository;
 import com.funck.digitalbank.domain.repositories.PropostaContaRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
     public PropostaConta cadastrarEndereco(final String propostaId, final Endereco endereco) {
         var proposta = getProposta(propostaId);
 
-        proposta.validarEtapa();
+        proposta.validarEtapasAnteriores();
 
         proposta.getPessoa().setEndereco(endereco);
 
@@ -52,7 +53,7 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
     public PropostaConta cadastrarFotoCPF(final String propostaId, final FotoCPF fotoCPF) {
         var proposta = getProposta(propostaId);
 
-        proposta.validarEtapa();
+        proposta.validarEtapasAnteriores();
 
         proposta.getPessoa().setFotoCpf(fotoCPF);
 
@@ -64,16 +65,22 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
     }
 
     @Override
-    public void finalizarProposta(final String propostaId, final boolean propostaAceita) {
+    public PropostaConta finalizarProposta(final String propostaId, final boolean propostaAceita) {
         var proposta = getProposta(propostaId);
 
-        proposta.validarEtapa();
+        proposta.validarEtapasAnteriores();
 
         if (propostaAceita) {
             finalizarPropostaConta.aceitarProposta(proposta);
+            proposta.setStatusProposta(StatusProposta.ACEITA);
         } else {
             finalizarPropostaConta.rejeitarProposta(proposta);
+            proposta.setStatusProposta(StatusProposta.RECUSADA);
         }
+
+        proposta.setEtapaProposta(EtapaCriacaoProposta.PROPOSTA_FINALIZADA);
+
+        return propostaContaRepository.save(proposta);
     }
 
     private PropostaConta getProposta(String propostaId) {

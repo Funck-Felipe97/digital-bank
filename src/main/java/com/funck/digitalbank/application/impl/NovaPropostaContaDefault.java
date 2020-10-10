@@ -13,6 +13,8 @@ import com.funck.digitalbank.domain.repositories.PropostaContaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 
@@ -25,6 +27,7 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
     private final PessoaRepository pessoaRepository;
     private final PropostaContaEventPublisher propostaContaEventPublisher;
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public PropostaConta novaProposta(final Pessoa pessoa) {
         var pessoaSalva = pessoaRepository.save(pessoa);
@@ -34,6 +37,7 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
         return propostaContaRepository.save(propostaConta);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public PropostaConta cadastrarEndereco(final String propostaId, final Endereco endereco) {
         var proposta = getProposta(propostaId);
@@ -49,6 +53,7 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
         return propostaContaRepository.save(proposta);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public PropostaConta cadastrarFotoCPF(final String propostaId, final FotoCPF fotoCPF) {
         var proposta = getProposta(propostaId);
@@ -64,6 +69,7 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
         return propostaContaRepository.save(proposta);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public PropostaConta finalizarProposta(final String propostaId, final boolean propostaAceita) {
         var proposta = getProposta(propostaId);

@@ -50,7 +50,7 @@ public class TokenValidatorTest {
         // given
         tokenAcesso.setUsado(true);
 
-        doReturn(Optional.of(tokenAcesso)).when(tokenAcessoRepository).findByTokenAndConta_id("123456", "fake@gmail.com");
+        doReturn(Optional.of(tokenAcesso)).when(tokenAcessoRepository).findByTokenAndConta_id("123456", "idConta");
 
         // when then
         assertThrows(TokenInvalidoException.class, () -> tokenValidator.validar("idConta", "123456"));

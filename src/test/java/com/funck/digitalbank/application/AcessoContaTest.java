@@ -54,21 +54,23 @@ public class AcessoContaTest {
         var conta = Conta.builder().proposta(proposta).build();
         var token = TokenAcesso.builder().token("123456").build();
 
-        doReturn(Optional.of(conta)).when(contaRepository).findByEmailAndCpfPessoa("fake@gmail", "000.000.000.00");
+        doReturn(Optional.of(conta)).when(contaRepository).findByEmailAndCpfPessoa("fake@gmail.com", "000.000.000.00");
         doReturn(token).when(tokenAcessoGenerator).criarToken(conta);
 
         // when
-        acessoConta.primeiroAcesso("fake@gmail", "000.000.000.00");
+        acessoConta.primeiroAcesso("fake@gmail.com", "000.000.000.00");
 
         // then
         var captor = ArgumentCaptor.forClass(Email.class);
 
         verify(emailSender).send(captor.capture());
+
         var email = captor.getValue();
+
         assertAll("email", () -> {
             assertEquals("utilize o token para logar no aplicativo", email.getTitulo());
             assertEquals("Token: 123456", email.getMensagem());
-            assertEquals("fake@gmail", email.getDestinatario());
+            assertEquals("fake@gmail.com", email.getDestinatario());
         });
     }
 

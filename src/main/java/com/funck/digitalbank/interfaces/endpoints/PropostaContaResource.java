@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@RequestMapping("proposta-conta")
+@RequestMapping("/proposta-conta")
 @RestController
 public class PropostaContaResource implements AbstractResource {
 

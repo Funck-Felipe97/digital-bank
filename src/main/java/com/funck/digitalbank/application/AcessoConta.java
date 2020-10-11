@@ -1,7 +1,9 @@
 package com.funck.digitalbank.application;
 
+import com.funck.digitalbank.domain.model.TokenAcesso;
+
 public interface AcessoConta {
 
-    void primeiroAcesso(String email, String cpf);
+    TokenAcesso primeiroAcesso(String email, String cpf);
 
 }

@@ -1,9 +1,9 @@
 package com.funck.digitalbank.application;
 
-import com.funck.digitalbank.domain.model.Conta;
+import com.funck.digitalbank.application.events.ContaCriadaEvent;
 
 public interface ContaCriada {
 
-    void procederContaCriada(Conta conta);
+    void procederContaCriada(ContaCriadaEvent contaCriadaEvent);
 
 }

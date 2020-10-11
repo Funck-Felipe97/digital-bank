@@ -27,7 +27,7 @@ public class PropostaRecusadaListener implements FinalizarPropostaConta<Proposta
         Email email = Email.builder()
                 .destinatario(propostaConta.getPessoa().getEmail())
                 .emitente(emailEmpresa)
-                .titulo("Você recusou nossa porposta de abertura de conta")
+                .titulo("Você recusou nossa proposta de abertura de conta")
                 .mensagem("Por favor, aceita nossa proposta para abrir um conta digital : ) ")
                 .build();
 

@@ -57,7 +57,7 @@ public class NovaPropostaContaTest {
 
         endereco = Endereco.builder().bairro("Bucarein").cep("00000-000").cidade("Joinville").complemento("12").estado("SC").rua("America").build();
 
-        fotoCPF = FotoCPF.builder().fotoFrente(new byte[]{1, 0}).fotoVerso(new byte[]{0, 1}).build();
+        fotoCPF = FotoCPF.builder().fotoFrente("https:urlfoto/frente").fotoVerso("https:urlfoto/verso").build();
     }
 
     @Test

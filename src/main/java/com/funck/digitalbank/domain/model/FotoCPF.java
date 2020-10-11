@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Builder
 @NoArgsConstructor
@@ -20,12 +20,12 @@ import javax.persistence.Table;
 @Table(name = "foto_cpf")
 public class FotoCPF extends AbstractEntity {
 
-    @Lob
-    @Column(name = "foto_frente")
-    private byte[] fotoFrente;
+    @NotNull
+    @Column(name = "foto_frente", nullable = false)
+    private String fotoFrente;
 
-    @Lob
-    @Column(name = "foto_verso")
-    private byte[] fotoVerso;
+    @NotNull
+    @Column(name = "foto_verso", nullable = false)
+    private String fotoVerso;
 
 }

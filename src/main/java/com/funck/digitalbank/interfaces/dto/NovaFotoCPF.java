@@ -9,10 +9,10 @@ import javax.validation.constraints.NotNull;
 public class NovaFotoCPF {
 
     @NotNull
-    private byte[] frente;
+    private String frente;
 
     @NotNull
-    private byte[] verso;
+    private String verso;
 
     public FotoCPF toCPF() {
         return FotoCPF.builder()

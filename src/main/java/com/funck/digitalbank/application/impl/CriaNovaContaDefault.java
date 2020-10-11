@@ -5,6 +5,7 @@ import com.funck.digitalbank.application.events.ContaCriadaEvent;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.PropostaConta;
 import com.funck.digitalbank.domain.repositories.ContaRepository;
+import com.funck.digitalbank.infrastructure.util.GeradorDigito;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -41,8 +42,8 @@ public class CriaNovaContaDefault implements CriaNovaConta {
         return Conta
                 .builder()
                 .proposta(propostaConta)
-                .agencia("1234")
-                .numero("12345678")
+                .agencia(GeradorDigito.gerar(4))
+                .numero(GeradorDigito.gerar(8))
                 .banco("123")
                 .saldo(new BigDecimal("0.00"))
                 .build();

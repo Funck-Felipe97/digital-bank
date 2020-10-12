@@ -15,4 +15,6 @@ public interface ContaRepository extends JpaRepository<Conta, String> {
             "inner join pessoa p on p.id = pc.pessoa_id where p.cpf = :cpf and p.email = :email")
     Optional<Conta> findByEmailAndCpfPessoa(@PathParam("email") String email, @PathParam("cpf") String cpf);
 
+    Optional<Conta> findByAgenciaAndNumero(String agencia, String numero);
+
 }

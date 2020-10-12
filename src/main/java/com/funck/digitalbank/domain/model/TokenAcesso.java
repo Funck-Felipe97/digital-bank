@@ -39,4 +39,7 @@ public class TokenAcesso extends AbstractEntity {
     @NotNull
     private Boolean usado;
 
+    @NotNull
+    private Boolean validado;
+
 }

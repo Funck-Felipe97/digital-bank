@@ -6,6 +6,8 @@ import com.funck.digitalbank.domain.repositories.TokenAcessoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -17,6 +19,7 @@ public class TokenValidatorDefault implements TokenValidator {
 
     private final TokenAcessoRepository tokenAcessoRepository;
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void validar(@NotNull final String contaId, @NotNull final String token) {
         var tokenAcesso = tokenAcessoRepository.findByTokenAndConta_id(token, contaId)
@@ -30,7 +33,7 @@ public class TokenValidatorDefault implements TokenValidator {
             throw new TokenInvalidoException("Este token experiou , sorry : (");
         }
 
-        tokenAcesso.setUsado(true);
+        tokenAcesso.setValidado(true);
 
         tokenAcessoRepository.save(tokenAcesso);
     }

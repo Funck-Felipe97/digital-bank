@@ -70,7 +70,7 @@ public class TokenValidatorTest {
     }
 
     @Test
-    @DisplayName("Deve alterar o token para usado após a validação do token estiver ok")
+    @DisplayName("Deve alterar o token para validado após a validação do token estiver ok")
     public void testValidar4() {
         // given
         tokenAcesso.setUsado(false);
@@ -86,6 +86,6 @@ public class TokenValidatorTest {
 
         verify(tokenAcessoRepository).save(captor.capture());
 
-        assertTrue(captor.getValue().getUsado());
+        assertTrue(captor.getValue().getValidado());
     }
 }

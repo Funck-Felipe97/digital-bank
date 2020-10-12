@@ -39,6 +39,7 @@ public class TokenAcessoGeneratorDefault implements TokenAcessoGenerator {
                 .conta(conta)
                 .dataValidade(dataValidade)
                 .usado(false)
+                .validado(false)
                 .build();
 
         return tokenAcessoRepository.save(token);

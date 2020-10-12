@@ -38,4 +38,6 @@ public class Conta extends AbstractEntity {
     @Column(name = "saldo", nullable = false, scale = 2)
     private BigDecimal saldo;
 
+    private String senha;
+
 }

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -15,6 +16,7 @@ public class EmailSenderDefault implements EmailSender {
 
     private final JavaMailSender emailSender;
 
+    @Async
     @Override
     public void send(final Email email) {
         log.info("Enviando e-mail real: " + email);

@@ -35,7 +35,6 @@ public class AcessoContaDefault implements AcessoConta {
         return token;
     }
 
-    @Async
     public void sendEmail(final String emailPessoa, final TokenAcesso token) {
         log.info("Enviando email com o token: " + token);
 

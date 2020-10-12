@@ -1,6 +1,7 @@
 package com.funck.digitalbank.application;
 
 import com.funck.digitalbank.application.impl.CadastroSenhaDefault;
+import com.funck.digitalbank.domain.exceptions.BadRequestException;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.TokenAcesso;
 import com.funck.digitalbank.domain.repositories.ContaRepository;
@@ -14,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.util.DigestUtils;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,13 +41,13 @@ public class CadastroSenhaTest {
     }
 
     @Test
-    @DisplayName("Deve lançar NoSuchElementException quando a conta não for encontrada")
+    @DisplayName("Deve lançar BadRequestException quando a conta não for encontrada")
     public void testCriarSenha() {
-        assertThrows(NoSuchElementException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
+        assertThrows(BadRequestException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
     }
 
     @Test
-    @DisplayName("Deve lançar NoSuchElementException quando nenhum token válido for encontrado")
+    @DisplayName("Deve lançar BadRequestException quando nenhum token válido for encontrado")
     public void testCriarSenha2() {
         // given
         var conta = new Conta();
@@ -56,11 +56,11 @@ public class CadastroSenhaTest {
         doReturn(Optional.of(conta)).when(contaRepository).findById("contaId");
 
         // when then
-        assertThrows(NoSuchElementException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
+        assertThrows(BadRequestException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
     }
 
     @Test
-    @DisplayName("Deve lançar IllegalArgumentException quando o token usado para definir senha não estiver validado")
+    @DisplayName("Deve lançar BadRequestException quando o token usado para definir senha não estiver validado")
     public void testCriarSenha3() {
         // given
         var conta = new Conta();
@@ -73,11 +73,11 @@ public class CadastroSenhaTest {
         doReturn(Optional.of(token)).when(tokenAcessoRepository).findTokenValidoByConta(conta);
 
         // when then
-        assertThrows(IllegalArgumentException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
+        assertThrows(BadRequestException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
     }
 
     @Test
-    @DisplayName("Deve lançar IllegalArgumentException quando o token usado para definir senha já estiver sido usado antes")
+    @DisplayName("Deve lançar BadRequestException quando o token usado para definir senha já estiver sido usado antes")
     public void testCriarSenha4() {
         // given
         var conta = new Conta();
@@ -91,7 +91,7 @@ public class CadastroSenhaTest {
         doReturn(Optional.of(token)).when(tokenAcessoRepository).findTokenValidoByConta(conta);
 
         // when then
-        assertThrows(IllegalArgumentException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
+        assertThrows(BadRequestException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.funck.digitalbank.application.impl;
 
 import com.funck.digitalbank.application.CadastroSenha;
+import com.funck.digitalbank.domain.exceptions.BadRequestException;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.TokenAcesso;
 import com.funck.digitalbank.domain.repositories.ContaRepository;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
-
-import java.util.NoSuchElementException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,10 +25,10 @@ public class CadastroSenhaDefault implements CadastroSenha {
     @Override
     public void criarSenha(final String contaId, String senha) {
         var conta = contaRepository.findById(contaId)
-                .orElseThrow(() -> new NoSuchElementException("Conta não encontrada: " + contaId));
+                .orElseThrow(() -> new BadRequestException("Conta não encontrada: " + contaId));
 
         var tokenAcesso = tokenAcessoRepository.findTokenValidoByConta(conta)
-                .orElseThrow(() -> new NoSuchElementException("A conta não possuí o token válido associoado"));
+                .orElseThrow(() -> new BadRequestException("A conta não possuí o token válido associoado"));
 
         validarToken(tokenAcesso);
 
@@ -40,11 +39,11 @@ public class CadastroSenhaDefault implements CadastroSenha {
 
     private void validarToken(final TokenAcesso tokenAcesso) {
         if (!tokenAcesso.getValidado()) {
-            throw new IllegalArgumentException("O token informado não foi validado");
+            throw new BadRequestException("O token informado não foi validado");
         }
 
         if (tokenAcesso.getUsado()) {
-            throw new IllegalArgumentException("O token informado já foi utilizado");
+            throw new BadRequestException("O token informado já foi utilizado");
         }
     }
 

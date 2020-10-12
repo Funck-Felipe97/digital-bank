@@ -2,6 +2,7 @@ package com.funck.digitalbank.application.impl;
 
 import com.funck.digitalbank.application.NovaPropostaConta;
 import com.funck.digitalbank.application.PropostaContaEventPublisher;
+import com.funck.digitalbank.domain.exceptions.NotFoundException;
 import com.funck.digitalbank.domain.model.Endereco;
 import com.funck.digitalbank.domain.model.EtapaCriacaoProposta;
 import com.funck.digitalbank.domain.model.FotoCPF;
@@ -14,8 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.NoSuchElementException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -90,7 +89,7 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
 
     private PropostaConta getProposta(String propostaId) {
         return propostaContaRepository.findById(propostaId)
-                .orElseThrow(() -> new NoSuchElementException("Proposta não encontrada: " + propostaId));
+                .orElseThrow(() -> new NotFoundException("Proposta não encontrada: " + propostaId));
     }
 
 }

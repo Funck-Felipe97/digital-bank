@@ -1,7 +1,7 @@
 package com.funck.digitalbank.application;
 
 import com.funck.digitalbank.application.events.ContaCriadaEvent;
-import com.funck.digitalbank.application.impl.CriaNovaContaDefault;
+import com.funck.digitalbank.application.impl.CadastroContaDefault;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.PropostaConta;
 import com.funck.digitalbank.domain.repositories.ContaRepository;
@@ -22,10 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class CriaNovaContaTest {
+public class CadastroContaTest {
 
     @InjectMocks
-    private CriaNovaContaDefault criaNovaConta;
+    private CadastroContaDefault criaNovaConta;
 
     @Mock
     private ContaRepository contaRepository;

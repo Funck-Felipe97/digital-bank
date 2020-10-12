@@ -2,7 +2,7 @@ package com.funck.digitalbank.application;
 
 import com.funck.digitalbank.application.events.ContaCriadaEvent;
 import com.funck.digitalbank.application.impl.ContaCriadaListener;
-import com.funck.digitalbank.application.impl.CriaNovaContaDefault;
+import com.funck.digitalbank.application.impl.CadastroContaDefault;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.Pessoa;
 import com.funck.digitalbank.domain.model.PropostaConta;
@@ -40,7 +40,7 @@ public class ContaCriadaListenerTest {
         var pessoa = Pessoa.builder().email("fake@gmail.com").build();
         var proposta = PropostaConta.builder().pessoa(pessoa).build();
         var conta = Conta.builder().proposta(proposta).build();
-        var contaCriadaEvent = new ContaCriadaEvent(CriaNovaContaDefault.class, conta);
+        var contaCriadaEvent = new ContaCriadaEvent(CadastroContaDefault.class, conta);
 
         // when
         contaCriadaListener.procederContaCriada(contaCriadaEvent);

@@ -38,7 +38,7 @@ public class PropostaAceitaListenerTest {
     private PropostaContaRepository propostaContaRepository;
 
     @Mock
-    private CriaNovaConta criaNovaConta;
+    private CadastroConta cadastroConta;
 
     @Captor
     private ArgumentCaptor<PropostaConta> propostaCaptor;
@@ -105,7 +105,7 @@ public class PropostaAceitaListenerTest {
         propostaAceitaListener.procederProposta(propostaAceitaEvent);
 
         // then
-        verify(criaNovaConta).criar(propostaAceitaEvent.getPropostaConta());
+        verify(cadastroConta).criar(propostaAceitaEvent.getPropostaConta());
     }
 
     private PropostaConta getPropostaConta() {

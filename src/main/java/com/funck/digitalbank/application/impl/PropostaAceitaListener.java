@@ -1,6 +1,6 @@
 package com.funck.digitalbank.application.impl;
 
-import com.funck.digitalbank.application.CriaNovaConta;
+import com.funck.digitalbank.application.CadastroConta;
 import com.funck.digitalbank.application.FinalizarPropostaConta;
 import com.funck.digitalbank.application.events.PropostaAceitaEvent;
 import com.funck.digitalbank.domain.model.PropostaConta;
@@ -19,7 +19,7 @@ public class PropostaAceitaListener implements FinalizarPropostaConta<PropostaAc
 
     private final ValidaDocumentoPessoa validaDocumentoPessoa;
     private final PropostaContaRepository propostaContaRepository;
-    private final CriaNovaConta criaNovaConta;
+    private final CadastroConta cadastroConta;
 
     @Transactional(propagation = Propagation.REQUIRED)
     @EventListener
@@ -32,7 +32,7 @@ public class PropostaAceitaListener implements FinalizarPropostaConta<PropostaAc
         validarDocumentoPessoa(propostaConta);
 
         if (StatusProposta.LIBERADA.equals(propostaConta.getStatusProposta())) {
-            criaNovaConta.criar(propostaConta);
+            cadastroConta.criar(propostaConta);
         }
     }
 

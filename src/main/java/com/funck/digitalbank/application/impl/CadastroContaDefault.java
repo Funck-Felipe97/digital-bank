@@ -1,6 +1,6 @@
 package com.funck.digitalbank.application.impl;
 
-import com.funck.digitalbank.application.CriaNovaConta;
+import com.funck.digitalbank.application.CadastroConta;
 import com.funck.digitalbank.application.events.ContaCriadaEvent;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.PropostaConta;
@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class CriaNovaContaDefault implements CriaNovaConta {
+public class CadastroContaDefault implements CadastroConta {
 
     private final ContaRepository contaRepository;
     private final ApplicationEventPublisher publisher;

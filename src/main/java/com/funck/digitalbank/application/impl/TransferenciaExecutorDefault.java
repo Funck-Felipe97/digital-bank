@@ -22,7 +22,7 @@ public class TransferenciaExecutorDefault implements TransferenciaExecutor {
     private final TransferenciaSaldoRepository transferenciaSaldoRepository;
 
     @Override
-    public void execute(@NotNull final Conta conta, @NotNull final TransferenciaSaldo transferencia) {
+    public synchronized void execute(@NotNull final Conta conta, @NotNull final TransferenciaSaldo transferencia) {
         var transferenciaOptional = transferenciaSaldoRepository.findByCodigoTransferencia(transferencia.getCodigoTransferencia());
 
         if (transferenciaOptional.isPresent() && transferenciaOptional.get().getProcessada()) {

@@ -3,7 +3,7 @@ package com.funck.digitalbank.application;
 import com.funck.digitalbank.application.events.ContaCriadaEvent;
 import com.funck.digitalbank.application.impl.ContaCriadaListener;
 import com.funck.digitalbank.application.impl.CadastroContaDefault;
-import com.funck.digitalbank.config.BancoConfig;
+import com.funck.digitalbank.infrastructure.config.BancoConfig;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.Pessoa;
 import com.funck.digitalbank.domain.model.PropostaConta;

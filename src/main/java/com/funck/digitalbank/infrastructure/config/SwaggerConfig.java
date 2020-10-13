@@ -1,4 +1,4 @@
-package com.funck.digitalbank.config;
+package com.funck.digitalbank.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

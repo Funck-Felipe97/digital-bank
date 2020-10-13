@@ -1,4 +1,4 @@
-package com.funck.digitalbank.config;
+package com.funck.digitalbank.infrastructure.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

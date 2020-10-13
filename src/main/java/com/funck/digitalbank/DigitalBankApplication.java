@@ -1,6 +1,6 @@
 package com.funck.digitalbank;
 
-import com.funck.digitalbank.config.BancoConfig;
+import com.funck.digitalbank.infrastructure.config.BancoConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

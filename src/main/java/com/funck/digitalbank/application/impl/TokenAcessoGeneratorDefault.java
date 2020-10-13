@@ -1,7 +1,7 @@
 package com.funck.digitalbank.application.impl;
 
 import com.funck.digitalbank.application.TokenAcessoGenerator;
-import com.funck.digitalbank.config.BancoConfig;
+import com.funck.digitalbank.infrastructure.config.BancoConfig;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.TokenAcesso;
 import com.funck.digitalbank.domain.repositories.TokenAcessoRepository;

@@ -2,7 +2,7 @@ package com.funck.digitalbank.application.impl;
 
 import com.funck.digitalbank.application.ContaCriada;
 import com.funck.digitalbank.application.events.ContaCriadaEvent;
-import com.funck.digitalbank.config.BancoConfig;
+import com.funck.digitalbank.infrastructure.config.BancoConfig;
 import com.funck.digitalbank.infrastructure.email.Email;
 import com.funck.digitalbank.infrastructure.email.EmailSender;
 import lombok.RequiredArgsConstructor;

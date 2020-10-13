@@ -2,7 +2,7 @@ package com.funck.digitalbank.application;
 
 import com.funck.digitalbank.application.events.PropostaRecusadaEvent;
 import com.funck.digitalbank.application.impl.PropostaRecusadaListener;
-import com.funck.digitalbank.config.BancoConfig;
+import com.funck.digitalbank.infrastructure.config.BancoConfig;
 import com.funck.digitalbank.domain.model.Pessoa;
 import com.funck.digitalbank.domain.model.PropostaConta;
 import com.funck.digitalbank.infrastructure.email.Email;

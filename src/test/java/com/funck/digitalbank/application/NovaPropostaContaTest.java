@@ -144,6 +144,23 @@ public class NovaPropostaContaTest {
     }
 
     @Test
+    @DisplayName("Deve lançar IllegalArgumentException quando for cadastrar um endereço e a pessoa da proposta já tiver endereço cadastrado")
+    public void testCadastrarEndereco4() {
+        // given
+        var proposta = new PropostaConta();
+        pessoa.setEndereco(new Endereco());
+
+        proposta.setId("idProposta");
+        proposta.setEtapaProposta(EtapaCriacaoProposta.PESSOA_CADASTRADA);
+        proposta.setPessoa(pessoa);
+
+        doReturn(Optional.of(proposta)).when(propostaContaRepository).findById("idProposta");
+
+        // when then
+        assertThrows(IllegalArgumentException.class, () -> novaPropostaConta.cadastrarEndereco("idProposta", endereco));
+    }
+
+    @Test
     @DisplayName("Deve lançar NoSuchElementExpection quando a proposta não existir na base")
     public void testCadastrarFotoCPF() {
         assertThrows(
@@ -217,6 +234,24 @@ public class NovaPropostaContaTest {
             assertEquals("idFotoCPF", propostaSalva.getPessoa().getFotoCpf().getId());
             assertEquals(EtapaCriacaoProposta.CPF_CADASTRADO, propostaSalva.getEtapaProposta());
         });
+    }
+
+    @Test
+    @DisplayName("Deve lançar IllegalArgumentException quando for cadastrar um CPF e a pessoa da proposta já tiver cpf cadastrado")
+    public void testCadastrarFotoCPF5() {
+        // given
+        var proposta = new PropostaConta();
+        pessoa.setEndereco(endereco);
+        pessoa.setFotoCpf(new FotoCPF());
+
+        proposta.setId("idProposta");
+        proposta.setEtapaProposta(EtapaCriacaoProposta.ENDERECO_CADASTRADO);
+        proposta.setPessoa(pessoa);
+
+        doReturn(Optional.of(proposta)).when(propostaContaRepository).findById("idProposta");
+
+        // when then
+        assertThrows(IllegalArgumentException.class, () -> novaPropostaConta.cadastrarFotoCPF("idProposta", fotoCPF));
     }
 
     @Test
@@ -343,4 +378,5 @@ public class NovaPropostaContaTest {
             assertEquals(EtapaCriacaoProposta.PROPOSTA_FINALIZADA, propostaSalva.getEtapaProposta());
         });
     }
+
 }

@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -42,6 +43,8 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
 
         proposta.validarEtapasAnteriores();
 
+        Assert.isNull(proposta.getPessoa().getEndereco(), "O endereço já foi cadastrado para esta pessoa");
+
         proposta.getPessoa().setEndereco(endereco);
 
         pessoaRepository.save(proposta.getPessoa());
@@ -57,6 +60,8 @@ public class NovaPropostaContaDefault implements NovaPropostaConta {
         var proposta = getProposta(propostaId);
 
         proposta.validarEtapasAnteriores();
+
+        Assert.isNull(proposta.getPessoa().getFotoCpf(), "A foto do CPF já foi cadastrada para esta pessoa");
 
         proposta.getPessoa().setFotoCpf(fotoCPF);
 

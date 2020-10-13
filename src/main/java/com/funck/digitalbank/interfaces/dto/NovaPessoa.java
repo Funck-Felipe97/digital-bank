@@ -2,10 +2,10 @@ package com.funck.digitalbank.interfaces.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.funck.digitalbank.domain.model.Pessoa;
+import com.funck.digitalbank.infrastructure.validador.CPF;
 import com.funck.digitalbank.infrastructure.validador.Email;
 import com.funck.digitalbank.infrastructure.validador.Idade;
 import lombok.Data;
-import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -26,15 +26,15 @@ public class NovaPessoa {
     @NotNull
     private String email;
 
+    @CPF(unique = true)
     @NotNull
-    @CPF
     private String cpf;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Idade(minima = 18)
-    @NotNull
     @Past
+    @NotNull
     private LocalDate dataNascimento;
 
     public Pessoa toPessoa() {

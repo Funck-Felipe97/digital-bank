@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -36,6 +37,7 @@ public class Pessoa extends AbstractEntity {
     @Column(name = "sobrenome", nullable = false)
     private String sobrenome;
 
+    @Email
     @Column(name = "email", nullable = false)
     private String email;
 

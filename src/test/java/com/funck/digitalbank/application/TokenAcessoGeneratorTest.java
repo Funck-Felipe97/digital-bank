@@ -1,29 +1,37 @@
 package com.funck.digitalbank.application;
 
 import com.funck.digitalbank.application.impl.TokenAcessoGeneratorDefault;
+import com.funck.digitalbank.config.BancoConfig;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.TokenAcesso;
 import com.funck.digitalbank.domain.repositories.TokenAcessoRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.verify;
 
 public class TokenAcessoGeneratorTest {
 
-    private TokenAcessoGenerator tokenAcessoGenerator;
+    @InjectMocks
+    private TokenAcessoGeneratorDefault tokenAcessoGenerator;
+
+    @Mock
     private TokenAcessoRepository tokenAcessoRepository;
-    private Long tempoDuracaoToken;
+
+    @Spy
+    private BancoConfig bancoConfig;
 
     @BeforeEach
     public void setUp() {
-        tokenAcessoRepository = mock(TokenAcessoRepository.class);
-        tempoDuracaoToken = 300L;
-        tokenAcessoGenerator = new TokenAcessoGeneratorDefault(tokenAcessoRepository, tempoDuracaoToken);
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test

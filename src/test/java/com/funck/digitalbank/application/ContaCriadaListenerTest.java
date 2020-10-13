@@ -3,6 +3,7 @@ package com.funck.digitalbank.application;
 import com.funck.digitalbank.application.events.ContaCriadaEvent;
 import com.funck.digitalbank.application.impl.ContaCriadaListener;
 import com.funck.digitalbank.application.impl.CadastroContaDefault;
+import com.funck.digitalbank.config.BancoConfig;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.Pessoa;
 import com.funck.digitalbank.domain.model.PropostaConta;
@@ -12,25 +13,29 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class ContaCriadaListenerTest {
 
+    @InjectMocks
     private ContaCriadaListener contaCriadaListener;
+
+    @Mock
     private EmailSender emailSender;
-    private String emailEmpresa;
+
+    @Spy
+    private BancoConfig bancoConfig;
 
     @BeforeEach
     public void setUp() {
-        emailSender = mock(EmailSender.class);
-
-        emailEmpresa = "email-empresa@gmail.com";
-
-        contaCriadaListener = new ContaCriadaListener(emailEmpresa, emailSender);
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test

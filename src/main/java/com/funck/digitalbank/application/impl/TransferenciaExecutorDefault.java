@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
+
 @Slf4j
 @RequiredArgsConstructor
 @Primary
@@ -20,7 +22,7 @@ public class TransferenciaExecutorDefault implements TransferenciaExecutor {
     private final TransferenciaSaldoRepository transferenciaSaldoRepository;
 
     @Override
-    public void execute(final Conta conta, final TransferenciaSaldo transferencia) {
+    public void execute(@NotNull final Conta conta, @NotNull final TransferenciaSaldo transferencia) {
         var transferenciaOptional = transferenciaSaldoRepository.findByCodigoTransferencia(transferencia.getCodigoTransferencia());
 
         if (transferenciaOptional.isPresent() && transferenciaOptional.get().getProcessada()) {

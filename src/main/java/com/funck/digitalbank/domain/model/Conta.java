@@ -48,7 +48,7 @@ public class Conta extends AbstractEntity {
     private String senha;
 
     public Conta() {
-        this.saldo = new BigDecimal("0.00");
+        this.saldo = new BigDecimal(0.00);
     }
 
     public void depositar(@Min(0) @NotNull BigDecimal valorTransferencia) {

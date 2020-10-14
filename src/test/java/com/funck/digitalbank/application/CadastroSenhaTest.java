@@ -2,6 +2,7 @@ package com.funck.digitalbank.application;
 
 import com.funck.digitalbank.application.impl.CadastroSenhaDefault;
 import com.funck.digitalbank.domain.exceptions.BadRequestException;
+import com.funck.digitalbank.domain.exceptions.TokenInvalidoException;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.TokenAcesso;
 import com.funck.digitalbank.domain.repositories.ContaRepository;
@@ -15,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.util.DigestUtils;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -60,7 +62,7 @@ public class CadastroSenhaTest {
     }
 
     @Test
-    @DisplayName("Deve lançar BadRequestException quando o token usado para definir senha não estiver validado")
+    @DisplayName("Deve lançar TokenInvalidoException quando o token usado para definir senha não estiver validado")
     public void testCriarSenha3() {
         // given
         var conta = new Conta();
@@ -73,11 +75,11 @@ public class CadastroSenhaTest {
         doReturn(Optional.of(token)).when(tokenAcessoRepository).findTokenValidoByConta(conta);
 
         // when then
-        assertThrows(BadRequestException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
+        assertThrows(TokenInvalidoException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
     }
 
     @Test
-    @DisplayName("Deve lançar BadRequestException quando o token usado para definir senha já estiver sido usado antes")
+    @DisplayName("Deve lançar TokenInvalidoException quando o token usado para definir senha já estiver sido usado antes")
     public void testCriarSenha4() {
         // given
         var conta = new Conta();
@@ -91,7 +93,7 @@ public class CadastroSenhaTest {
         doReturn(Optional.of(token)).when(tokenAcessoRepository).findTokenValidoByConta(conta);
 
         // when then
-        assertThrows(BadRequestException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
+        assertThrows(TokenInvalidoException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
     }
 
     @Test
@@ -104,6 +106,7 @@ public class CadastroSenhaTest {
         var token = new TokenAcesso();
         token.setValidado(true);
         token.setUsado(false);
+        token.setDataValidade(LocalDateTime.MAX);
 
         doReturn(Optional.of(conta)).when(contaRepository).findById("contaId");
         doReturn(Optional.of(token)).when(tokenAcessoRepository).findTokenValidoByConta(conta);
@@ -131,6 +134,7 @@ public class CadastroSenhaTest {
         var token = new TokenAcesso();
         token.setValidado(true);
         token.setUsado(false);
+        token.setDataValidade(LocalDateTime.MAX);
 
         doReturn(Optional.of(conta)).when(contaRepository).findById("contaId");
         doReturn(Optional.of(token)).when(tokenAcessoRepository).findTokenValidoByConta(conta);
@@ -146,6 +150,25 @@ public class CadastroSenhaTest {
         var tokenSalvo = tokenCaptor.getValue();
 
         assertTrue(tokenSalvo.getUsado());
+    }
+
+    @Test
+    @DisplayName("Deve lançar TokenInvalidoException quando o token for expirado")
+    public void testCriarSenha7() {
+        // given
+        var conta = new Conta();
+        conta.setSenha("contaId");
+
+        var token = new TokenAcesso();
+        token.setValidado(true);
+        token.setUsado(false);
+        token.setDataValidade(LocalDateTime.MIN);
+
+        doReturn(Optional.of(conta)).when(contaRepository).findById("contaId");
+        doReturn(Optional.of(token)).when(tokenAcessoRepository).findTokenValidoByConta(conta);
+
+        // when then
+        assertThrows(TokenInvalidoException.class, () -> cadastroSenha.criarSenha("contaId", "12345678"));
     }
 
 }

@@ -55,4 +55,13 @@ public class Conta extends AbstractEntity {
         this.saldo = this.saldo.add(valorTransferencia);
     }
 
+    public String info() {
+        var info = new StringBuilder();
+
+        info.append("Agência: " + agencia);
+        info.append(" Número: " + numero);
+        info.append(" Banco: " + banco);
+
+        return info.toString();
+    }
 }

@@ -42,4 +42,8 @@ public class TokenAcesso extends AbstractEntity {
     @NotNull
     private Boolean validado;
 
+    public boolean expirado() {
+        return LocalDateTime.now().isAfter(dataValidade);
+    }
+
 }

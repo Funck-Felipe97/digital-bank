@@ -10,7 +10,7 @@ export DB_PORT=5432
 export DB_USER=root
 export DB_PASSWORD=root
 
-export EMAIL_LOGIN=seu-email@gmail.com
-export EMAIL_PASSWORD=seu-senha
+export EMAIL_LOGIN=seu-email
+export EMAIL_PASSWORD=sua-senha
 
 mvn spring-boot:run -Dspring-boot.run.profiles=prod

@@ -29,7 +29,7 @@ public class TokenValidatorDefault implements TokenValidator {
             throw new TokenInvalidoException("Este token já foi utilizado, sorry : (");
         }
 
-        if (LocalDateTime.now().isAfter(tokenAcesso.getDataValidade())) {
+        if (tokenAcesso.expirado()) {
             throw new TokenInvalidoException("Este token experiou , sorry : (");
         }
 

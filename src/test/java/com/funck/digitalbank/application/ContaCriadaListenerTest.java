@@ -59,7 +59,7 @@ public class ContaCriadaListenerTest {
 
         assertAll("email", () -> {
             assertEquals("Sua conta foi criada com sucesso!", email.getTitulo());
-            assertEquals(conta.toString(), email.getMensagem());
+            assertEquals(conta.info(), email.getMensagem());
             assertEquals("fake@gmail.com", email.getDestinatario());
         });
     }

@@ -5,6 +5,7 @@ import com.funck.digitalbank.application.impl.CadastroContaDefault;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.PropostaConta;
 import com.funck.digitalbank.domain.repositories.ContaRepository;
+import com.funck.digitalbank.infrastructure.config.BancoConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,9 +36,14 @@ public class CadastroContaTest {
     @Mock
     private ApplicationEventPublisher publisher;
 
+    @Mock
+    private BancoConfig bancoConfig;
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+
+        doReturn("123").when(bancoConfig).getNumero();
     }
 
     @Test

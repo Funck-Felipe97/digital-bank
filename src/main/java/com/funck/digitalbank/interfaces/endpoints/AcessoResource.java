@@ -23,7 +23,7 @@ public class AcessoResource implements AbstractResource {
     public ResponseEntity<String> primeiroAcesso(@RequestBody @Valid final PrimeiroAcessoInfo primeiroAcessoInfo, HttpServletResponse response) {
         var tokenAcesso = acessoConta.primeiroAcesso(primeiroAcessoInfo.getEmail(), primeiroAcessoInfo.getCpf());
 
-        response.setHeader("Location", createURI("token/{id}", tokenAcesso.getConta().getId()).toASCIIString());
+        response.setHeader("Location", createURI("conta/{id}/token/{token}", tokenAcesso.getConta().getId(), tokenAcesso.getToken()).toASCIIString());
 
         return ResponseEntity.ok("Enviamos um token de acesso para o seu email");
     }

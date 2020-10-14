@@ -2,6 +2,7 @@ package com.funck.digitalbank.application.impl;
 
 import com.funck.digitalbank.application.CadastroSenha;
 import com.funck.digitalbank.domain.exceptions.BadRequestException;
+import com.funck.digitalbank.domain.exceptions.TokenInvalidoException;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.TokenAcesso;
 import com.funck.digitalbank.domain.repositories.ContaRepository;
@@ -39,11 +40,15 @@ public class CadastroSenhaDefault implements CadastroSenha {
 
     private void validarToken(final TokenAcesso tokenAcesso) {
         if (!tokenAcesso.getValidado()) {
-            throw new BadRequestException("O token informado não foi validado");
+            throw new TokenInvalidoException("O token informado não foi validado");
         }
 
         if (tokenAcesso.getUsado()) {
-            throw new BadRequestException("O token informado já foi utilizado");
+            throw new TokenInvalidoException("O token informado já foi utilizado");
+        }
+
+        if (tokenAcesso.expirado()) {
+            throw new TokenInvalidoException("Este token experiou , sorry : (");
         }
     }
 

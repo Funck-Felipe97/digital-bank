@@ -5,6 +5,7 @@ import com.funck.digitalbank.application.events.ContaCriadaEvent;
 import com.funck.digitalbank.domain.model.Conta;
 import com.funck.digitalbank.domain.model.PropostaConta;
 import com.funck.digitalbank.domain.repositories.ContaRepository;
+import com.funck.digitalbank.infrastructure.config.BancoConfig;
 import com.funck.digitalbank.infrastructure.util.GeradorDigito;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ public class CadastroContaDefault implements CadastroConta {
 
     private final ContaRepository contaRepository;
     private final ApplicationEventPublisher publisher;
+    private final BancoConfig bancoConfig;
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
@@ -44,7 +46,7 @@ public class CadastroContaDefault implements CadastroConta {
                 .proposta(propostaConta)
                 .agencia(GeradorDigito.gerar(4))
                 .numero(GeradorDigito.gerar(8))
-                .banco("123")
+                .banco(bancoConfig.getNumero())
                 .saldo(new BigDecimal("0.00"))
                 .build();
     }

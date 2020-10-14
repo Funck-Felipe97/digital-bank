@@ -29,7 +29,7 @@ public class ContaCriadaListener implements ContaCriada {
 
         var email = Email.builder()
                 .titulo("Sua conta foi criada com sucesso!")
-                .mensagem(conta.toString())
+                .mensagem(conta.info())
                 .destinatario(conta.getProposta().getPessoa().getEmail())
                 .emitente(bancoConfig.getEmail())
                 .build();

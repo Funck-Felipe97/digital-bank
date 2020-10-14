@@ -13,4 +13,11 @@ public interface AbstractResource {
                 .toUri();
     }
 
+    default URI createURI(final String path, final String id, final String value) {
+        return ServletUriComponentsBuilder.fromCurrentServletMapping()
+                .path(path)
+                .buildAndExpand(id, value)
+                .toUri();
+    }
+
 }
